@@ -41,5 +41,6 @@ gem 'jquery-rails'
 gem 'haml'
 # use Ruby debugger
 group :development, :test do
+  gem 'soundcloud'
   gem 'debugger'
 end

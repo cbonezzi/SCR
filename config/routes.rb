@@ -1,4 +1,8 @@
 Soundcloudradio::Application.routes.draw do
+  resources :sessions
+  match '/callback', to: 'sessions#new', via: :get
+  match '/login', to: 'sessions#create', via: :get
+  match '/logout', to: 'sessions#destroy', via: :delete
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

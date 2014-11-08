@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.15'
+gem 'rails', '3.2.16'
 gem 'soundcloud'
 #ruby '1.9.3'
 
@@ -11,6 +11,12 @@ gem 'soundcloud'
 group :development, :test do
   gem 'sqlite3'
   gem 'debugger'
+  gem 'database_cleaner'
+  gem 'capybara'
+  gem 'launchy'
+  gem 'rspec-rails'
+  gem 'cucumber-rails', :require => false
+  gem 'cucumber-rails-training-wheels'
 end
 
 group :production do

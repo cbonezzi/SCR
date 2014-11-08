@@ -26,9 +26,9 @@
           %ul.nav.navbar-nav.navbar-center
             %li
               .form-group
-                %input.form-control{:placeholder => "Search", :type => "text"}
-            %li
-              %button.btn.btn-default{:type => "submit"} Submit
+                = form_tag songs_search_by_genre_path do
+                  = text_field_tag :search_term
+                  = submit_tag 'Search Sounds'
           %ul.nav.navbar-nav.navbar-right
             - if @current_user
               %li

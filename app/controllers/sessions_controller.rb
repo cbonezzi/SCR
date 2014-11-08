@@ -1,7 +1,7 @@
+require 'soundcloud'
+
 class SessionsController < ApplicationController
   before_filter :set_current_user
-  
-  require 'soundcloud'
   
   def new
     # create client object with app credentials

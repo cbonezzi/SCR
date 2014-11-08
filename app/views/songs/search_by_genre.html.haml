@@ -1,0 +1,14 @@
+%h2 The following songs containing '#{@searched_term}' were found on SoundClound
+%br
+%table
+  %thead
+    %tr
+      %th Username
+      %th Title
+      %th URL
+  %tbody
+    - @songs_info.each do |metainfo|
+      %tr
+        %td= metainfo[:username]
+        %td= metainfo[:title]
+        %td= link_to "Link", metainfo[:url]

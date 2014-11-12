@@ -1,3 +1,11 @@
-.input-mysize{
-  width: 100%
+body {
+    padding-top: 70px;
+}
+
+.btn-link {
+    padding-top: 14px;
+}
+
+.btn:hover {
+    text-decoration: none;
 }

@@ -8,21 +8,22 @@ class SongsController < ApplicationController
     else
       @searched_term = params[:search_term]
       client = SoundCloud.new(:client_id => 'd2e2927d267c9beb15ad51ad98e897c6')
-      @song_titles_by_genre = []
-      @songs_info = Array.new
-      tracks = client.get('/tracks', :limit => 5,:genres => @searched_term, :order => 'hotness')
+      @songs_info = []
+      tracks = client.get('/tracks', :limit => 30,:genres => @searched_term, :order => 'created_at', :offset => 30)
       tracks.each do |track|
-        songs_hash = Hash.new
-	songs_hash[:title] = track.title
-        songs_hash[:username] = track.user.username
-        embed_info = client.get('/oembed',  :url => track.permalink_url)
-        songs_hash[:url] = embed_info['html'][71..-12]
-        @songs_info.push(songs_hash)
-        @song_titles_by_genre.push(track.title)
+        if track.stream_url
+          songs_hash = {}
+          songs_hash[:track] = track
+          songs_hash[:title] = track.title
+          songs_hash[:username] = track.user.username
+          songs_hash[:url] = track.permalink_url
+          songs_hash[:stream_url] = track.stream_url + '?client_id=d2e2927d267c9beb15ad51ad98e897c6'
+          @songs_info.push(songs_hash)
+        end
       end
 
       if tracks.count == 0
-	flash[:notice] = "No matching songs were found on Soundcloud"
+	      flash[:notice] = "No matching songs were found on Soundcloud"
         redirect_to sessions_path
       end
     end

@@ -4,6 +4,8 @@
     %title SoundCloud Radio
     = stylesheet_link_tag 'https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'
     = stylesheet_link_tag 'main'
+    = javascript_include_tag 'audio'
+    = javascript_include_tag 'jquery'
     = csrf_meta_tags
 
   %body
@@ -32,18 +34,21 @@
                 = text_field_tag  :search_term, nil, class: "form-control"
                 = submit_tag 'Search Sounds', class: "btn btn-default"
             %ul.nav.navbar-nav.navbar-right
+              - if @songs_info
+                %a.navbar-brand
+                  %span.glyphicon.glyphicon-play#playPause
+                %a.navbar-brand
+                  %span.glyphicon.glyphicon-forward#skip
               - if @current_user
                 %li
-                  %a Welcome #{@current_user.username}
-                %li
-                  = button_to 'Logout', logout_path, :method => :delete, class: "btn btn-link"
+                  = button_to "Logout #{@current_user.username}", logout_path, :method => :delete, class: "btn btn-link"
               - else
                 %li
                   = button_to 'Login', login_path, :method => :get, class: "btn btn-link"
           / /.navbar-collapse
         / /.container-fluid
       #main.row
-        #content.jumbotron
+        #content
           - if flash[:notice]
             %h2 #{flash[:notice]}
           - elsif flash[:warning]

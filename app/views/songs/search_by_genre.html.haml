@@ -1,42 +1,54 @@
-%iframe{:width => "100%", :src => "https://w.soundcloud.com/player/?visual=true&url=https%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F#{@songs_info[0][:id]}"}
 :javascript
   $(function() {
-          // Setup the player to autoplay the next track
-          var a = audiojs.createAll({
-            trackEnded: function() {
-              var next = $('.list.playing').next();
-              if (!next.length) next = $('.list').first();
-              next.addClass('playing').siblings().removeClass('playing');
-              audio.load($('.song', next).attr('data-src'));
-              audio.play();
-            }
-          });
+          var streamUrls = $('.temp_information').data('temp');
+          if (streamUrls) {
+            var currentSong = 0;
+            var color_unselected = "black"
+            var color_selected = "#ff3a00";
 
-          // Load in the first track
-          var audio = a[0];
-          first = $('.song').attr('data-src');
-          $('.list').first().addClass('playing');
-          audio.load(first);
+            // Setup the player to autoplay the next track
+            var a = audiojs.createAll({
+              trackEnded: function() {
+                if (++currentSong >= streamUrls.length) {
+                  currentSong = 0;
+                }
+                audio.load(streamUrls[currentSong]);
+                audio.play();
+                document.getElementById("playPause").className = "glyphicon glyphicon-pause";
+                for (i = 0; i < streamUrls.length; i++) {
+                  document.getElementById("song_" + i).style.color = color_unselected;
+                }
+                document.getElementById("song_" + currentSong).style.color = color_selected;
+              }
+            });
 
-          $('#playPause').click(function(e) {
-            audio.playPause();
-            if (audio.playing) {
-              document.getElementById("playPause").className = "glyphicon glyphicon-pause";
-            }
-            else {
-              document.getElementById("playPause").className = "glyphicon glyphicon-play";
-            }
+            // Load in the first track
+            var audio = a[0];
+            first = streamUrls[currentSong];
+            audio.load(first);
+            document.getElementById("song_" + currentSong).style.color = color_selected;
 
-          });
 
-          //$('#skip').click(function(e) {
-          //
-          //});
+            $('#playPause').click(function(e) {
+              audio.playPause();
+              if (audio.playing) {
+                document.getElementById("playPause").className = "glyphicon glyphicon-pause";
+              }
+              else {
+                document.getElementById("playPause").className = "glyphicon glyphicon-play";
+              }
+            });
+
+            $('#skip').click(function(e) {
+              audio.trackEnded();
+            });
+          }
         });
-.jumbotron
-  %h2 The following songs containing '#{@searched_term}' were found on SoundClound
+.panel.panel-default
+  .panel-heading
+    %h2 The following songs containing '#{@searched_term}' were found on SoundClound
   %br
-  %table{:width => "100%"}
+  %table.table{:width => "100%"}
     %thead
       %tr
         %th Username
@@ -44,12 +56,11 @@
         %th URL
     %tbody
       %div
-        %audio{:preload => ""}
-        -#%tr
-        -#  %td= @songs_info[0][:track]
-        - @songs_info.each do |metainfo|
-          %a.song{"data-src" => "#{metainfo[:stream_url]}", :href => "#", :style => "display:none"} &nbsp
-          %tr
+        %div{:style => "display:none"}
+          %audio{:preload => ""}
+        - @songs_info.each_with_index do |metainfo, index|
+          %tr{:id => "song_#{index}"}
             %td= metainfo[:username]
             %td= metainfo[:title]
             %td= link_to "Link", metainfo[:url]
+      %div.temp_information{data: {temp: @stream_urls}}

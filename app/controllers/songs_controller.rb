@@ -8,6 +8,7 @@ class SongsController < ApplicationController
     else
       @searched_term = params[:search_term]
       client = SoundCloud.new(:client_id => 'd2e2927d267c9beb15ad51ad98e897c6')
+      @stream_urls = []
       @songs_info = []
       tracks = client.get('/tracks', :limit => 30,:genres => @searched_term, :order => 'created_at', :offset => 30)
       tracks.each do |track|
@@ -18,6 +19,7 @@ class SongsController < ApplicationController
           songs_hash[:username] = track.user.username
           songs_hash[:url] = track.permalink_url
           songs_hash[:stream_url] = track.stream_url + '?client_id=d2e2927d267c9beb15ad51ad98e897c6'
+          @stream_urls.push(songs_hash[:stream_url])
           @songs_info.push(songs_hash)
         end
       end

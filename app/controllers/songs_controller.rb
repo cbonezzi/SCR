@@ -6,6 +6,12 @@ class SongsController < ApplicationController
       flash[:notice] = "Invalid search term"
       redirect_to sessions_path
     else
+      if GENRES.include? params[:search_term].downcase
+        @search_message = "The following #{params[:search_term]} songs were found"
+      else
+        @search_message = "The following songs by #{params[:search_term].split.map(&:capitalize).join(' ')} were found"
+      end
+
       @searched_term = params[:search_term]
       client = SoundCloud.new(:client_id => 'd2e2927d267c9beb15ad51ad98e897c6')
       @stream_urls = []

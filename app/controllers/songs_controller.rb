@@ -1,32 +1,35 @@
+require 'json'
+
 class SongsController < ApplicationController
   before_filter :set_current_user
 
   def search_by_genre
-    if (params[:search_term] == nil) || (params[:search_term].blank? == true)
+    @searched_term = params[:search_term]
+    if (@searched_term == nil) || (@searched_term.blank? == true)
       flash[:notice] = "Invalid search term"
       redirect_to sessions_path
     else
-      if GENRES.include? params[:search_term].downcase
-        @search_message = "The following #{params[:search_term]} songs were found"
+      if GENRES.include? @searched_term.downcase
+        @search_message = "The following #{@searched_term} songs were found"
       else
-        @search_message = "The following songs by #{params[:search_term].split.map(&:capitalize).join(' ')} were found"
+        @search_message = "The following songs by #{@searched_term.split.map(&:capitalize).join(' ')} were found"
       end
 
-      @searched_term = params[:search_term]
+      @songs = []
+      @json_songs = []
       client = SoundCloud.new(:client_id => 'd2e2927d267c9beb15ad51ad98e897c6')
-      @stream_urls = []
-      @songs_info = []
-      tracks = client.get('/tracks', :limit => 30,:genres => @searched_term, :order => 'created_at', :offset => 30)
+      tracks = client.get('/tracks', :limit => 30,:genres => @searched_term, :order => 'created_at')
       tracks.each do |track|
         if track.stream_url
           songs_hash = {}
           songs_hash[:track] = track
+          songs_hash[:artwork] = track.artwork_url
           songs_hash[:title] = track.title
           songs_hash[:username] = track.user.username
           songs_hash[:url] = track.permalink_url
           songs_hash[:stream_url] = track.stream_url + '?client_id=d2e2927d267c9beb15ad51ad98e897c6'
-          @stream_urls.push(songs_hash[:stream_url])
-          @songs_info.push(songs_hash)
+          @songs.push(songs_hash)
+          @json_songs.push(songs_hash.to_json)
         end
       end
 

@@ -34,7 +34,7 @@
                 = text_field_tag  :search_term, nil, class: "form-control"
                 = submit_tag 'Search Sounds', class: "btn btn-default"
             %ul.nav.navbar-nav.navbar-right
-              - if @songs_info
+              - if @songs
                 %a.navbar-brand
                   %span.glyphicon.glyphicon-play#playPause
                 %a.navbar-brand

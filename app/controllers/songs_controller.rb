@@ -17,7 +17,7 @@ class SongsController < ApplicationController
 
       @songs = []
       @json_songs = []
-      client = SoundCloud.new(:client_id => 'd2e2927d267c9beb15ad51ad98e897c6')
+      client = SoundCloud.new(:client_id => @api_client_id)
       tracks = client.get('/tracks', :limit => 30,:genres => @searched_term, :order => 'created_at')
       tracks.each do |track|
         if track.stream_url
@@ -27,7 +27,7 @@ class SongsController < ApplicationController
           songs_hash[:title] = track.title
           songs_hash[:username] = track.user.username
           songs_hash[:url] = track.permalink_url
-          songs_hash[:stream_url] = track.stream_url + '?client_id=d2e2927d267c9beb15ad51ad98e897c6'
+          songs_hash[:stream_url] = track.stream_url + '?client_id=' + @api_client_id
           @songs.push(songs_hash)
           @json_songs.push(songs_hash.to_json)
         end

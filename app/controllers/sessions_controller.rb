@@ -2,17 +2,12 @@ require 'soundcloud'
 
 class SessionsController < ApplicationController
   before_filter :set_current_user
-  before_filter :setup_environment
-  
+
   def new
     # create client object with app credentials
-    #client = Soundcloud.new(:client_id => @client_id,
-     #                       :client_secret => 'a60a652797b751dfe2fa8a7b9b2a2c71',
-      #                      :redirect_uri => 'http://localhost:3000/callback')
-    
-     client = Soundcloud.new(:client_id => @client_id,
-                           :client_secret => @client_secret,
-                           :redirect_uri => @uri)
+    client = Soundcloud.new(:client_id => @api_client_id,
+                            :client_secret => @api_client_secret,
+                            :redirect_uri => @api_redirect_uri)
 
     # TODO: Add try to make sure that the access token is retrieved successfully
     error = params[:error]
@@ -52,13 +47,9 @@ class SessionsController < ApplicationController
   
   def create
     # create client object with app credentials
-    #client = Soundcloud.new(:client_id => '651bb9d2501269f3a3fd1b17638e1186',
-    #                        :client_secret => 'a60a652797b751dfe2fa8a7b9b2a2c71',
-    #                        :redirect_uri => 'http://localhost:3000/callback')
-    
-    client = Soundcloud.new(:client_id => @client_id,
-                            :client_secret => @client_secret,
-                            :redirect_uri => @uri)
+    client = Soundcloud.new(:client_id => @api_client_id,
+                            :client_secret => @api_client_secret,
+                            :redirect_uri => @api_redirect_uri)
 
     # redirect user to authorize URL
     redirect_to client.authorize_url

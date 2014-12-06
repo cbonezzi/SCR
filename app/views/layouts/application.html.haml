@@ -6,6 +6,7 @@
     = stylesheet_link_tag 'main'
     = javascript_include_tag 'audio'
     = javascript_include_tag 'jquery'
+    = javascript_include_tag 'player'
     = csrf_meta_tags
 
   %body
@@ -32,21 +33,17 @@
             .form-group.navbar-form.navbar-left
               = form_tag songs_search_by_genre_path do
                 = text_field_tag  :search_term, nil, class: "form-control"
-                = submit_tag 'Search Sounds', class: "btn btn-default"
+                = submit_tag "Search", class: "btn btn-default"
             %ul.nav.navbar-nav.navbar-right
-              - if @songs
-                %a.navbar-brand
-                  %span.glyphicon.glyphicon-play#playPause
-                %a.navbar-brand
-                  %span.glyphicon.glyphicon-forward#skip
               - if @current_user
                 %li
                   = button_to "Logout #{@current_user.username}", logout_path, :method => :delete, class: "btn btn-link"
               - else
                 %li
-                  = button_to 'Login', login_path, :method => :get, class: "btn btn-link"
-          / /.navbar-collapse
-        / /.container-fluid
+                  = button_to "Login", login_path, :method => :get, class: "btn btn-link"
+      - if @log
+        %h2 Logger:
+        %h3 #{@log}
       #main.row
         #content
           - if flash[:notice]
@@ -54,3 +51,34 @@
           - elsif flash[:warning]
             %h2 #{flash[:warning]}
           = yield
+
+    / embedded player and songs data
+    .embedded-player
+      %audio{:preload => ""}
+    #json-songs{data: {variable: @json_songs}}
+
+    / player bottom bar
+    - if @json_songs
+      #player-bar.navbar.navbar-inverse.navbar-fixed-bottom
+        .container
+          .row
+            #current-song-info
+              .navbar-brand.col
+                %span.glyphicon.glyphicon-play#play-pause
+              .navbar-brand.col
+                %img#current-artwork{:src => ""}
+              .navbar-brand.col
+                .row
+                  %p#current-title.heading
+                .row
+                  %a#current-link View SoundCloud Page
+              .navbar-brand.col
+                %span.glyphicon.glyphicon-step-forward#skip
+            #next-song-info.navbar-right
+              .navbar-brand.col
+                .row
+                  %p.heading Comming Up:
+                .row
+                  %p#next-title
+              .right-element.navbar-brand.col
+                %img#next-artwork{:src => ""}

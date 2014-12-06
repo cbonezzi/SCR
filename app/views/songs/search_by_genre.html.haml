@@ -1,62 +1,6 @@
-:javascript
-  $(function() {
-          var json_songs = $('#json_songs').data('variable');
-          var songs = [];
-          for (var i = 0; i < json_songs.length; i++) {
-            songs[i] = JSON.parse(json_songs[i]);
-          }
-
-          if (songs) {
-            var currentSong = 0;
-            var color_unselected = "black"
-            var color_selected = "#ff3a00";
-
-            // Setup the player to autoplay the next track
-            var a = audiojs.createAll({
-              trackEnded: function() {
-                if (++currentSong >= songs.length) {
-                  currentSong = 0;
-                }
-                //document.getElementById("artwork_image").src = art.artwork;
-                audio.load(songs[currentSong].stream_url);
-                audio.play();
-                document.getElementById("playPause").className = "glyphicon glyphicon-pause";
-                for (i = 0; i < songs.length; i++) {
-                  document.getElementById("song_" + i).style.color = color_unselected;
-                }
-                document.getElementById("song_" + currentSong).style.color = color_selected;
-              }
-            });
-
-            // Load in the first track
-            var audio = a[0];
-            first = songs[currentSong].stream_url;
-            audio.load(first);
-            document.getElementById("song_" + currentSong).style.color = color_selected;
-
-
-            $('#playPause').click(function(e) {
-              audio.playPause();
-              if (audio.playing) {
-                document.getElementById("playPause").className = "glyphicon glyphicon-pause";
-              }
-              else {
-                document.getElementById("playPause").className = "glyphicon glyphicon-play";
-              }
-            });
-
-            $('#skip').click(function(e) {
-              audio.trackEnded();
-            });
-          }
-        });
 .panel.panel-default
   .panel-heading
     %h2 #{@search_message}
-  %br
-  - if @log
-    %h2 Logger:
-    %h3 #{@log}
   %table.table{:width => "100%"}
     %thead
       %tr
@@ -66,8 +10,6 @@
         %th URL
     %tbody
       %div
-        %div{:style => "display:none"}
-          %audio{:preload => ""}
         - @songs.each_with_index do |metainfo, index|
           %tr{:id => "song_#{index}"}
             %td
@@ -75,4 +17,3 @@
             %td= metainfo[:username]
             %td= metainfo[:title]
             %td= link_to "Link", metainfo[:url]
-      %div#json_songs{data: {variable: @json_songs}}

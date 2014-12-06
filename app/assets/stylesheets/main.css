@@ -1,11 +1,74 @@
 body {
-    padding-top: 70px;
+    padding-top: 4.5em;
+    padding-bottom: 5em;
 }
 
 .btn-link {
-    padding-top: 14px;
+    padding-top: 1em;
 }
 
 .btn:hover {
     text-decoration: none;
+}
+
+.embedded-player {
+    display: none;
+}
+
+#player-bar {
+    min-height: 5.6em;
+}
+
+#player-bar .col {
+    margin-right: 1.5em;
+}
+
+#player-bar .navbar-brand {
+    padding: 0;
+    line-height: 2em;
+}
+
+#player-bar .glyphicon {
+    line-height: 2.1em;
+    font-size: 2.1em;
+}
+
+#player-bar img {
+    margin-top: 0.17em;
+    height: 4em;
+}
+
+#player-bar .heading {
+    color: white;
+    margin: 0;
+    margin-top: 0.2em;
+    line-height: 3em;
+    font-size: 1.5em;
+}
+
+#player-bar .heading:hover {
+    color: white;
+}
+
+#player-bar a, #next-song-info .navbar-brand:hover {
+    color: gray;
+}
+
+#player-bar a:hover {
+    color: white;
+    text-decoration: none;
+}
+
+#player-bar a:visited {
+    text-decoration: none;
+}
+
+#player-bar .right-element {
+    margin-right: 0;
+}
+
+#player-bar .row {
+    margin: 0;
+    line-height: 1em;
+    font-size: 0.6em;
 }

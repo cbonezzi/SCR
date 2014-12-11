@@ -1,0 +1,19 @@
+.panel.panel-default
+  .panel-heading
+    %h2 #{@search_message}
+  %table.table{:width => "100%"}
+    %thead
+      %tr
+        %th Artwork
+        %th Username
+        %th Title
+        %th URL
+    %tbody
+      %div
+        - @songs.each_with_index do |metainfo, index|
+          %tr{:id => "song_#{index}"}
+            %td
+              %img{:src => metainfo[:artwork], :height => "100px"}
+            %td= metainfo[:username]
+            %td= metainfo[:title]
+            %td= link_to "Link", metainfo[:url]

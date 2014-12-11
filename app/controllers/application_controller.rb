@@ -8,9 +8,10 @@ class ApplicationController < ActionController::Base
 
   def setup_environment
     @env = ENV['RAILS_ENV']
-    @api_client_id = CREDENTIALS[@env][:client_id]
-    @api_client_secret = CREDENTIALS[@env][:client_secret]
-    @api_redirect_uri = CREDENTIALS[@env][:redirect_uri]
+    @sc_api_client_id = SC_CREDENTIALS[@env][:client_id]
+    @sc_api_client_secret = SC_CREDENTIALS[@env][:client_secret]
+    @sc_api_redirect_uri = SC_CREDENTIALS[@env][:redirect_uri]
+    @lfm_api_key = LFM_CREDENTIALS[:key]
   end
 
   def clear_session

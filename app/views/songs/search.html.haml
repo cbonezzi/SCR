@@ -13,7 +13,7 @@
         - @songs.each_with_index do |metainfo, index|
           %tr{:id => "song_#{index}"}
             %td
-              %img{:src => metainfo[:artwork]}
+              %img{:src => metainfo[:artwork], :height => "100px"}
             %td= metainfo[:username]
             %td= metainfo[:title]
             %td= link_to "Link", metainfo[:url]

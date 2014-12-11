@@ -7,6 +7,7 @@ Soundcloudradio::Application.routes.draw do
   match '/login', to: 'sessions#create', via: :get
   match '/logout', to: 'sessions#destroy', via: :delete
   match '/search', to: 'songs#search'
+  match '/station', to: 'songs#create_station'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

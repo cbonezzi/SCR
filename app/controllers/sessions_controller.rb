@@ -5,9 +5,9 @@ class SessionsController < ApplicationController
 
   def new
     # create client object with app credentials
-    client = Soundcloud.new(:client_id => @api_client_id,
-                            :client_secret => @api_client_secret,
-                            :redirect_uri => @api_redirect_uri)
+    client = Soundcloud.new(:client_id => @sc_api_client_id,
+                            :client_secret => @sc_api_client_secret,
+                            :redirect_uri => @sc_api_redirect_uri)
 
     # TODO: Add try to make sure that the access token is retrieved successfully
     error = params[:error]
@@ -46,9 +46,9 @@ class SessionsController < ApplicationController
   
   def create
     # create client object with app credentials
-    client = Soundcloud.new(:client_id => @api_client_id,
-                            :client_secret => @api_client_secret,
-                            :redirect_uri => @api_redirect_uri)
+    client = Soundcloud.new(:client_id => @sc_api_client_id,
+                            :client_secret => @sc_api_client_secret,
+                            :redirect_uri => @sc_api_redirect_uri)
 
     # redirect user to authorize URL
     redirect_to client.authorize_url

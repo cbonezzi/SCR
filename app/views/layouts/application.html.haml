@@ -67,6 +67,10 @@
                 %span.glyphicon.glyphicon-play#play-pause
               .navbar-brand.col
                 %span.glyphicon.glyphicon-step-forward#skip
+              - if (not @similar_artists.empty?) && request.env['PATH_INFO'] != '/station'
+                .navbar-brand.col
+                  %a{:href => "/station"}
+                    %span.glyphicon.glyphicon-bullhorn
               .navbar-brand.col
                 %img#current-artwork{:src => ""}
               .navbar-brand.col

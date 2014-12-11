@@ -29,9 +29,9 @@
           #bs-example-navbar-collapse-1.collapse.navbar-collapse
             %ul.nav.navbar-nav
               %li.active
-                %a{:href => "/sessions#index"} Home
+                %a{:href => "/home"} Home
             .form-group.navbar-form.navbar-left
-              = form_tag songs_search_by_genre_path do
+              = form_tag search_path do
                 = text_field_tag  :search_term, nil, class: "form-control"
                 = submit_tag "Search", class: "btn btn-default"
             %ul.nav.navbar-nav.navbar-right

@@ -3,11 +3,15 @@ require 'json'
 class SongsController < ApplicationController
   before_filter :set_current_user
 
-  def search_by_genre
-    @searched_term = params[:search_term]
+  def search
+    if params[:search_term]
+      @searched_term = params[:search_term]
+    else
+      @searched_term = session[:search_term]
+    end
     if (@searched_term == nil) || (@searched_term.blank? == true)
       flash[:notice] = "Invalid search term"
-      redirect_to sessions_path
+      redirect_to home_path
     else
       if GENRES.include? @searched_term.downcase
         @search_message = "The following #{@searched_term} songs were found"
@@ -35,7 +39,7 @@ class SongsController < ApplicationController
 
       if tracks.count == 0
 	      flash[:notice] = "No matching songs were found on Soundcloud"
-        redirect_to sessions_path
+        redirect_to home_path
       end
     end
   end

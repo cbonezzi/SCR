@@ -40,9 +40,8 @@ class SessionsController < ApplicationController
 
       session[:session_token] = params[:user][:session_token]
     end
-    
-    # TODO: Use a proper homepage
-    redirect_to sessions_path
+
+    redirect_to home_path
   end
   
   def create

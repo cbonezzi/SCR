@@ -2,10 +2,11 @@ Soundcloudradio::Application.routes.draw do
   resources :sessions
   resources :songs
   root :to => 'sessions#index'
+  match '/home', to: 'sessions#index'
   match '/callback', to: 'sessions#new', via: :get
   match '/login', to: 'sessions#create', via: :get
   match '/logout', to: 'sessions#destroy', via: :delete
-  post '/songs/search_by_genre'
+  match '/search', to: 'songs#search'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

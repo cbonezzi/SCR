@@ -14,9 +14,9 @@ class SongsController < ApplicationController
       redirect_to home_path
     else
       if GENRES.include? @searched_term.downcase
-        @search_message = "The following #{@searched_term} songs were found"
+        @search_message = "Currently playing the #{@searched_term} radio"
       else
-        @search_message = "The following songs by #{@searched_term.split.map(&:capitalize).join(" ")} were found"
+        @search_message = "Currently playing #{@searched_term.split.map(&:capitalize).join(" ")}'s playlist"
         @similar_artists = search_similar_artists(@searched_term)
       end
 
@@ -93,7 +93,7 @@ class SongsController < ApplicationController
 
   def create_station
     @searched_term = session[:search_term]
-    @search_message = "Currently playing #{@searched_term.split.map(&:capitalize).join(" ")}'s station"
+    @search_message = "Currently playing #{@searched_term.split.map(&:capitalize).join(" ")}'s radio"
     @similar_artists = search_similar_artists(@searched_term)
     @songs = []
     @json_songs = []

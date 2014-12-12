@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141205213737) do
+ActiveRecord::Schema.define(:version => 20141211235621) do
 
   create_table "songs", :force => true do |t|
     t.string   "title"
@@ -27,6 +27,11 @@ ActiveRecord::Schema.define(:version => 20141205213737) do
     t.string   "session_token"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+  end
+
+  create_table "users_songs", :id => false, :force => true do |t|
+    t.integer "users_id"
+    t.integer "songs_id"
   end
 
 end

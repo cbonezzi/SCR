@@ -4,16 +4,17 @@
   %table.table{:width => "100%"}
     %thead
       %tr
-        %th Artwork
-        %th Username
-        %th Title
-        %th URL
+        %th{:width => "5%"} Artwork
+        %th{:width => "85%"} Title
+        %th{:width => "10%"} More
     %tbody
       %div
         - @songs.each_with_index do |metainfo, index|
           %tr{:id => "song_#{index}"}
-            %td
+            %td.vertical-align
               %img{:src => metainfo[:artwork], :height => "100px"}
-            %td= metainfo[:username]
-            %td= metainfo[:title]
-            %td= link_to "Link", metainfo[:url]
+            %td.vertical-align
+              %span #{metainfo[:title]}
+            %td.vertical-align
+              %a{:href => metainfo[:url]}
+                %span.glyphicon.glyphicon-cloud

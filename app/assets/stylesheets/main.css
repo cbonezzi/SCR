@@ -72,3 +72,23 @@ body {
     line-height: 1em;
     font-size: 0.6em;
 }
+
+td span {
+    line-height: 1.5em;
+    font-size: 1.5em;
+}
+
+td img {
+    margin-top: 0.17em;
+    height: 5em;
+}
+
+.table tbody>tr>td.vertical-align {
+    vertical-align: middle;
+}
+
+#current-title {
+    color: white;
+    line-height: 4.7em;
+    font-size: 1.5em;
+}

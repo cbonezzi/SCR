@@ -20,7 +20,6 @@ $(function () {
             }
             document.getElementById("current-artwork").src = songs[currentIndex].artwork;
             document.getElementById("current-title").innerHTML = songs[currentIndex].title;
-            document.getElementById("current-link").href = songs[currentIndex].url;
 
             document.getElementById("next-artwork").src = songs[nextIndex].artwork;
             document.getElementById("next-title").innerHTML = songs[nextIndex].title;

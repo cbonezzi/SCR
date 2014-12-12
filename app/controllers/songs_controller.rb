@@ -14,9 +14,9 @@ class SongsController < ApplicationController
       redirect_to home_path
     else
       if GENRES.include? @searched_term.downcase
-        @search_message = "Currently playing the #{@searched_term} radio"
+        @search_message = "Currently playing Radio #{@searched_term.split.map(&:capitalize).join(" ")}"
       else
-        @search_message = "Currently playing #{@searched_term.split.map(&:capitalize).join(" ")}'s playlist"
+        @search_message = "Currently playing #{@searched_term.split.map(&:capitalize).join(" ")}'s songs"
         @similar_artists = search_similar_artists(@searched_term)
       end
 
@@ -93,15 +93,15 @@ class SongsController < ApplicationController
 
   def create_station
     @searched_term = session[:search_term]
-    @search_message = "Currently playing #{@searched_term.split.map(&:capitalize).join(" ")}'s radio"
+    @search_message = "Currently playing Radio #{@searched_term.split.map(&:capitalize).join(" ")}"
     @similar_artists = search_similar_artists(@searched_term)
     @songs = []
     @json_songs = []
     @similar_artists.each do |artist|
-      songs, json_songs = search_random_songs(:genres, 5, 1, artist)
+      songs, json_songs = search_random_songs(:genres, 5, 6, artist)
       @songs += songs
     end
-    songs, json_songs = search_random_songs(:genres, 10, 1, @searched_term)
+    songs, json_songs = search_random_songs(:genres, 15, 11, @searched_term)
     @songs += songs
     @songs.shuffle!
     @songs.each do |song|

@@ -1,2 +1,6 @@
-- if (!flash[:notice])
-  %h2 Welcome to SoundCloud Radio!
+#front-carousel.carousel.slide{"data-ride" => "carousel"}
+  .carousel-inner
+    .item.active
+      %img.img-responsive{:alt => "", :src => "assets/cover.jpg"}
+        .carousel-caption
+          %h1 Welcome to SoundCloud Radio!

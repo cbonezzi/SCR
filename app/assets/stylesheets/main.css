@@ -92,3 +92,24 @@ td img {
     line-height: 4.7em;
     font-size: 1.5em;
 }
+
+td a:link {
+    color: #ff3a00;
+}
+
+td a:visited {
+    color: #ff3a00;
+}
+
+#front-carousel img {
+    margin: 0 auto;
+    height: 50em;
+}
+
+#front-carousel h1 {
+    font-weight: bold;
+    font-size: 5em;
+    color: #ff3a00;
+    margin-top: -5.5em;
+    text-shadow: black 0px 4px 2px;
+}
